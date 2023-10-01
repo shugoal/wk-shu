@@ -51,7 +51,7 @@ GARMIN_CN_URL_DICT = {
 
 # set to True if you want to sync all time activities
 # default only sync last 20
-GET_ALL = True
+GET_ALL = False
 
 
 class Garmin:
