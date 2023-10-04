@@ -20,7 +20,7 @@ import garth
 import httpx
 from config import FOLDER_DICT, JSON_FILE, SQL_FILE, config
 from garmin_device_adaptor import wrap_device_info
-from utils import make_activities_file_only
+from utils import make_activities_file
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -49,10 +49,6 @@ GARMIN_CN_URL_DICT = {
     "ACTIVITY_URL": "https://connectapi.garmin.cn/activity-service/activity/{activity_id}",
 }
 
-# set to True if you want to sync all time activities
-# default only sync last 20
-GET_ALL = True
-
 
 class Garmin:
     def __init__(self, secret_string, auth_domain, is_only_running=False):
@@ -66,6 +62,8 @@ class Garmin:
             if auth_domain and str(auth_domain).upper() == "CN"
             else GARMIN_COM_URL_DICT
         )
+        if auth_domain and str(auth_domain).upper() == "CN":
+            garth.configure(domain="garmin.cn")
         self.modern_url = self.URL_DICT.get("MODERN_URL")
         garth.client.loads(secret_string)
         if garth.client.oauth2_token.expired:
@@ -250,22 +248,13 @@ async def download_garmin_data(client, activity_id, file_type="gpx"):
 
 
 async def get_activity_id_list(client, start=0):
-    if GET_ALL:
-        activities = await client.get_activities(start, 100)
-        if len(activities) > 0:
-            ids = list(map(lambda a: str(a.get("activityId", "")), activities))
-            print("Syncing Activity IDs")
-            return ids + await get_activity_id_list(client, start + 100)
-        else:
-            return []
+    activities = await client.get_activities(start, 100)
+    if len(activities) > 0:
+        ids = list(map(lambda a: str(a.get("activityId", "")), activities))
+        print("Syncing Activity IDs")
+        return ids + await get_activity_id_list(client, start + 100)
     else:
-        activities = await client.get_activities(start, 20)
-        if len(activities) > 0:
-            ids = list(map(lambda a: str(a.get("activityId", "")), activities))
-            print(f"Syncing Activity IDs")
-            return ids
-        else:
-            return []
+        return []
 
 
 async def gather_with_concurrency(n, tasks):
@@ -367,4 +356,4 @@ if __name__ == "__main__":
         )
     )
     loop.run_until_complete(future)
-    make_activities_file_only(SQL_FILE, folder, JSON_FILE, file_suffix=file_type)
+    make_activities_file(SQL_FILE, folder, JSON_FILE, file_suffix=file_type)
