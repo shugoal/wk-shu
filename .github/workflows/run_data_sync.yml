@@ -26,8 +26,8 @@ env:
   TITLE: 叔桐宇运动轨迹
   MIN_GRID_DISTANCE: 1 # change min distance here
   TITLE_GRID: 1千米以上的 # also here
-  GITHUB_NAME: frhfeng  # change to yours
-  GITHUB_EMAIL: mecoollove98@gmail.com # change to yours
+  GITHUB_NAME: shugoal  # change to yours
+  GITHUB_EMAIL: shugoal@163.com # change to yours
   # IGNORE_BEFORE_SAVING: True # if you want to ignore some data before saving, set this to True
   IGNORE_START_END_RANGE: 0 # Unit meter
   # Dont making this huge, just picking points you needing. https://developers.google.com/maps/documentation/utilities/polylineutility using this tool to making your polyline
