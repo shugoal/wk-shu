@@ -11,7 +11,7 @@ interface ISiteMetadataResult {
 }
 
 const data: ISiteMetadataResult = {
-  siteTitle: '叔桐宇的运动轨迹',
+  siteTitle: '叔桐宇的运动',
   siteUrl: 'http://shugoal.github.io/wk-shu/',
   logo: 'https://img2.imgtp.com/2024/04/12/z9Yr3p57.jpg',
   description: 'Personal site and blog',
