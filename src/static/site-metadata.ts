@@ -11,9 +11,9 @@ interface ISiteMetadataResult {
 }
 
 const data: ISiteMetadataResult = {
-  siteTitle: '冯瑞恒的运动轨迹',
-  siteUrl: 'http://frhfeng.github.io/workouts_page/',
-  logo: 'https://pic.imgdb.cn/item/6419d1b1a682492fcc0e5c1a.jpg',
+  siteTitle: '叔桐宇的运动轨迹',
+  siteUrl: 'http://shugoal.github.io/workouts_page/',
+  logo: 'https://img2.imgtp.com/2024/04/12/z9Yr3p57.jpg',
   description: 'Personal site and blog',
   keywords: 'workouts, running, cycling, riding, roadtrip, hiking, swimming',
   navLinks: [
