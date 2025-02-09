@@ -95,6 +95,13 @@ jobs:
         run: pnpm install
       - name: Build
         run: PATH_PREFIX=/${{ github.event.repository.name }} pnpm build
+#添加检查输出目录是否存在
+      - name: Check build output
+        run: |
+          if [ ! -d "./dist" ]; then
+            echo "Build output directory 'dist' does not exist!"
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
